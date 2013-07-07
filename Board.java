@@ -84,6 +84,8 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void collisionTrue() {
+               if (en.isAlive == 1){   
+
         if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
             p.x += 100;
 
@@ -91,13 +93,14 @@ public class Board extends JPanel implements ActionListener {
         } else if (p.getX() < en.getX() && p.getX() > 100 && p.getX() < 720) {
             p.x -= 100;
         }
-
+               }
 
 
     }
     public void bulletHit(){
         en.health -=p.getAttackDamage();
-        
+       en.checkAlive();
+     
     }
 
     public void checkCollisions() {
@@ -169,18 +172,19 @@ public class Board extends JPanel implements ActionListener {
         //character image
         g2d.drawImage(p.getImage(), p.getX(), p.getY(), null);
         System.out.println(en.getHealth());
+        System.out.println(en.alive);
+        
 
         // Enemy Spawn
-        if (en.alive = true) {
-            g2d.drawImage(en.getImage(), en.getX(), en.getY(), null);
+        if (en.isAlive == 1){   
+        g2d.drawImage(en.getImage(), en.getX(), en.getY(), null);
             en.mobMove();
-        }
-
+    }
+/*
         g2d.drawImage(en2.getImage(), en2.getX(), en2.getY(), null);
         en2.mobMove();
-
-
-
+*/
+           
         ArrayList bullets = Hero.getBullets();
         for (int w = 0; w < bullets.size(); w++) {
             //This is how to get a current element in an arrayList

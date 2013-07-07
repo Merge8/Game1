@@ -15,6 +15,7 @@ public class Enemy {
     int x, dx, y, dy, spawnX, spawnY, faceLeft, faceRight,health, hitboxX, hitboxY;
     Image still, left, right;
     boolean alive = true;
+    int isAlive = 1;
     
     //ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostLeft.png");
     //ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostRight.png");
@@ -24,6 +25,11 @@ public Enemy(){
     
     
 }
+public void checkAlive(){
+       if (health <=0){
+    isAlive = 0;
+    }  
+    }
 public void alive(){
     if (health <=0){
     alive = false;
@@ -38,7 +44,9 @@ public void alive(){
     public Image getImage() {
         return still;
     }
-    
+    public int getIsAlive(){
+        return isAlive;
+    }
     
     
     

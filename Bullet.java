@@ -46,10 +46,17 @@ public class Bullet {
 	
 	public void move()
 	{
+           
 		x = x + 2;
-		if ( x > 700)
+		if ( x > 900)
 			visible = false;
 	}
+        public void moveLeft(){
+            x = x - 2;
+            if (x > 900){
+                visible = false;
+            }
+        }
 	
 	public void setVisible(boolean isVisible)//down
 	{

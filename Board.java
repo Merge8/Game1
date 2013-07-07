@@ -34,7 +34,7 @@ public class Board extends JPanel implements ActionListener {
     public Image platformImg;
     Timer time;
     boolean colide;
-    static Font font = new Font("SanSerif", Font.BOLD, 24);
+    static Font font = new Font("SanSerif", Font.BOLD, 20);
     public int v = 172;
     Thread animator;
     boolean a = false;
@@ -60,7 +60,7 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //mobMove();
+        mobMove();
         checkCollisions();
         p.move();
         repaint();
@@ -71,13 +71,19 @@ public class Board extends JPanel implements ActionListener {
             //This is how to get a current element in an arrayList
             //similar to x[2] in a normal array
             Bullet m = (Bullet) bullets.get(w);//draw:
+           if (p.facingWhileFired == 1){
             if (m.getVisible() == true) {
                 m.move();
+            } 
+        } else
+        if (p.facingWhileFired == 2){
+           if (m.getVisible() == true) {
+                m.moveLeft();
             } else {
                 bullets.remove(w);
             }
         }
-
+        }
 
 
 
@@ -193,6 +199,16 @@ public class Board extends JPanel implements ActionListener {
             g2d.drawImage(m.getImage(), m.getX(), m.getY(), null);
 
         }
+    
+        // display char top bar
+        
+        
+        g2d.setFont(font);
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("HP: " + p.getHealth() + " MP: " + p.getMana() + " XP: " + p.getXP() + "/" + p.getXpToLevel(), 50, 50);
+    
+        //
+        
         g2d.setFont(font);
         g2d.setColor(Color.BLUE);
         g2d.drawString("Ammo left: " + p.ammo, 500, 50);

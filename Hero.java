@@ -14,7 +14,7 @@ import javax.swing.Timer;
 public class Hero {
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
-            attackDamage, attackX, attackY, facing;
+            attackDamage, attackX, attackY, facing, health, mana ,xp, xpToLevel, facingWhileFired, level;
     boolean Jumped = false;
     boolean attacking = false;
     Timer jumpTimer;
@@ -24,7 +24,7 @@ public class Hero {
     ImageIcon ar = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackRight.png");
     ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackLeft.png");
     static ArrayList bullets;
-
+    static ArrayList bulletDirection;
     public Hero() {
         ammo = 10;
         still = i.getImage();
@@ -43,14 +43,21 @@ public class Hero {
         movementSpeed = 2;
         facing = 0;
         bullets = new ArrayList();
+        bulletDirection = new ArrayList();
         attackDamage = 50;
-
+health = 100;
+mana = 100;
+xp = 0;
+xpToLevel = 100;
+facingWhileFired = 0;
     }
 
     public static ArrayList getBullets() {
         return bullets;
     }
-
+    public static ArrayList getBulletDirection(){
+        return bulletDirection;
+    }
     public void fire() {
         if (ammo > 0) {
             ammo--;
@@ -58,6 +65,7 @@ public class Hero {
             //position when it is jumping, resulting in the bullet being formed
             //at a higher position when the character is at the peak of its jump
             Bullet z = new Bullet((getX() + 60), (getY() + 154 / 2));
+            
             bullets.add(z);
         }
     }
@@ -113,7 +121,6 @@ public class Hero {
         // nx = nx + dx;
 
     }
-
     public void jump() {
         jumpCounter++;
         y--;
@@ -122,7 +129,23 @@ public class Hero {
 
 
     }
-
+    
+    public int getXpToLevel(){
+        return xpToLevel;
+    }
+    public int getMana(){
+        
+        return mana;
+        
+    }
+    public int getXP(){
+        return xp;
+    }
+public int getHealth(){
+    
+    return health;
+    
+}
     public int getAttackDamage(){
         return attackDamage;
     }
@@ -199,6 +222,7 @@ public class Hero {
                 break;
             }
             case KeyEvent.VK_SPACE: {
+               facingWhileFired = facing;
                 fire();
                 break;
             }

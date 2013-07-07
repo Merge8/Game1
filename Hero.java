@@ -21,6 +21,7 @@ public class Hero {
     Image still;
     ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/left.png");
     ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/hero.png");
+    ImageIcon ar = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackRight.png");
 
     public Hero() {
         still = i.getImage();
@@ -143,12 +144,11 @@ public class Hero {
      public Rectangle attackZone(){
          attackX = x + 20;
          attackY = y + 20;
-if (attacking =. true){
+
 
 
         return new Rectangle(attackX,attackY, 50, 50 );
          
-     }
        }
     /*public void keyPressed(KeyEvent e) {
      int key = e.getKeyCode();
@@ -177,6 +177,7 @@ if (attacking =. true){
      
      public void attack(){
          attacking = true;
+         still = ar.getImage();
          
      }
     public void keyPressed(KeyEvent e) {

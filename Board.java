@@ -71,10 +71,7 @@ colide = false;
             }
         
     
-        if (p.attacking = true) {
-           System.out.println("Hit");
-           en.health = en.health - p.attackDamage;
-           }
+     
     }
     public void checkCollisions()
 {
@@ -89,9 +86,13 @@ colide = false;
        }
        
        // check attack hit
+       if (p.attacking = true){
        if (attackZone.intersects(er1)) {
+              
+           System.out.println("Hit");
+           en.health = en.health - p.attackDamage;
            
-       }
+       }}
        
 }
     @Override

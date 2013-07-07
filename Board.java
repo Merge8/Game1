@@ -108,8 +108,10 @@ colide = false;
         System.out.println(p.getY());
 
         // Enemy Spawn
+        if (en.alive = true){
         g2d.drawImage(en.getImage(), en.getX(),en.getY(), null);
         en.mobMove();
+        }
         
       g2d.drawImage(en2.getImage(), en2.getX(),en2.getY(), null);
       en2.mobMove();

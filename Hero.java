@@ -11,7 +11,8 @@ import javax.swing.Timer;
 
 public class Hero {
 
-    int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed;
+    int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
+            attackDamage;
     boolean Jumped = false;
     Timer jumpTimer;
     Image still;

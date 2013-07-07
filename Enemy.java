@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 public class Enemy {
     int x, dx, y, dy, spawnX, spawnY, faceLeft, faceRight,health, hitboxX, hitboxY;
     Image still, left, right;
-    boolean alive;
+    boolean alive = true;
     //ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostLeft.png");
     //ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostRight.png");
 
@@ -23,7 +23,11 @@ public Enemy(){
     
     
 }
-
+public void alive(){
+    if (health <=0){
+    alive = false;
+    }
+}
     public int getY() {
         return y;
     }

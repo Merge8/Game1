@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class Hero {
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
-            attackDamage;
+            attackDamage, attackX, attackY;
     boolean Jumped = false;
     boolean attacking = false;
     Timer jumpTimer;
@@ -43,15 +43,17 @@ public class Hero {
         x = x + dx;
         if (x < 0) {
             x = x + 2;
+            dx = 0;
         }
         if (x > 820) {
             x = x - 2;
+            dx = 0;
         }
         
-        // go threw floor stopper
+         //go threw floor stopper
         
-      // if (y > ground){
-        //   y = 442;
+       //if (y > ground){
+       //  y = 442;
        //}
         //gravity
         if (y < ground) {
@@ -73,10 +75,13 @@ public class Hero {
                 gravity += 1;
             } else gravity = maxGravity;
             //floor catcher
-        } else if (y > ground && y < 450) {
+        } else 
+            if (y > ground && y < 450) {
             y = ground;    
-        } else if (y == ground) {
+        } else 
+                if (y == ground) {
             gravity = 0;
+            jumpCounter = 0;
         }
         
         /*
@@ -88,13 +93,13 @@ public class Hero {
             jumpCounter = 0;
         }*/
 
-        nx2 = nx2 + dx;
-        nx = nx + dx;
+       // nx2 = nx2 + dx;
+       // nx = nx + dx;
 
     }
 
     public void jump() {
-        
+        jumpCounter++;
         y--;
         gravity = jumpHight;
 
@@ -134,7 +139,9 @@ public class Hero {
                 return new Rectangle(x,y, 76, 110);
         }
      public Rectangle attackZone(){
-        return new Rectangle(x += 20,y += 20, 50, 50 );
+         attackX = x + 20;
+         attackY = y + 20;
+        return new Rectangle(attackX,attackY, 50, 50 );
          
      }
        
@@ -186,9 +193,9 @@ public class Hero {
                 break;
             }
             case KeyEvent.VK_UP: {
-                
+                if (jumpCounter < 2) {
                 jump();
-                /*
+                }/*
                 if (jumpCounter <= 2) {
                     dy = -200;
                     jumpCounter++;

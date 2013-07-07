@@ -54,7 +54,6 @@ colide = false;
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
         mobMove();
         checkCollisions();
         p.move();
@@ -62,7 +61,7 @@ colide = false;
     }
 
     public void collisionTrue(){
-      /*  if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
+        if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
             p.x += 100;
                          
 
@@ -71,8 +70,11 @@ colide = false;
                 p.x-= 100;
             }
         
-    */
-        
+    
+        if (p.attacking = true) {
+           System.out.println("Hit");
+           en.health = en.health - p.attackDamage;
+           }
     }
     public void checkCollisions()
 {
@@ -81,15 +83,13 @@ colide = false;
         Rectangle attackZone = p.attackZone();
         
        if (hero.intersects(er1)) {
-           //collisionTrue();
+           collisionTrue();
            System.out.println("Colide!");
            
        }
        
        // check attack hit
        if (attackZone.intersects(er1)) {
-           System.out.println("Hit");
-           en.health = en.health - p.attackDamage;
            
        }
        

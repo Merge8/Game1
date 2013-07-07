@@ -30,7 +30,7 @@ public class Hero {
 
         still = i.getImage();
         x = 45;
-        y = 200;
+        y = 400;
         nx2 = 685;
         nx = 0;
         right = 820;
@@ -207,7 +207,7 @@ public class Hero {
                 fire();
                 break;
             }
-
+        
         } // end switch
 
     } // end keyPressed

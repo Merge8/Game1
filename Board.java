@@ -48,9 +48,8 @@ public class Board extends JPanel implements ActionListener {
         setFocusable(true);
         ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/background.png");
         ImageIcon f = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/floor.png");
-
         ImageIcon platform = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/platform.png");
-colide = false;
+        colide = false;
         img = i.getImage();
         floorImg = f.getImage();
         platformImg = platform.getImage();
@@ -126,7 +125,7 @@ colide = false;
         
           if (p.dy == 1 && done2 == false) {
                         done2 = true;
-                        animator = new Thread((Runnable) this);
+                     animator = new Thread((Runnable) this);
                         animator.start();
                 }
 p.y = v;
@@ -143,7 +142,8 @@ p.y = v;
                 
                 
 
-//background image             
+        //background image
+              
         g2d.drawImage(img, 0, 0, null);
         // bottom floor image
         g2d.drawImage(floorImg, 0, 545, null);
@@ -151,9 +151,9 @@ p.y = v;
         g2d.drawImage(platformImg, 0, 300, null);
 
 
-//character image
+        //character image
         g2d.drawImage(p.getImage(), p.getX(), p.getY(), null);
-       // System.out.println(p.getY());
+       System.out.println(p.getY());
 
         // Enemy Spawn
         if (en.alive = true){
@@ -209,16 +209,16 @@ p.y = v;
     }
 // end board class
 
-        boolean h = false;
+        boolean hd = false;
         boolean done = false;
  
         public void cycle() {
  
-                if (h == false)
+                if (hd == false)
                         v--;
                 if (v == 125)
-                        h = true;
-                if (h == true && v <= 172) {
+                        hd = true;
+                if (hd == true && v <= 172) {
                         v++;
                         if (v == 172) {
                                 done = true;
@@ -250,7 +250,7 @@ p.y = v;
                         beforeTime = System.currentTimeMillis();
                 }
                 done = false;
-                h = false;
+                hd = false;
                 done2 = false;
         }
  

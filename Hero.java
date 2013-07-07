@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 //this is crazy
 package GameTest;
 
@@ -23,10 +22,8 @@ public class Hero {
     ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/left.png");
     ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/hero.png");
     ImageIcon ar = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackRight.png");
-   
     ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackLeft.png");
-       static ArrayList bullets;
-
+    static ArrayList bullets;
 
     public Hero() {
         ammo = 10;
@@ -46,24 +43,24 @@ public class Hero {
         jumpHight = -40;
         movementSpeed = 2;
         facing = 0;
-                bullets = new ArrayList();
+        bullets = new ArrayList();
 
     }
-       public static ArrayList getBullets()
-        {
-                return bullets;
+
+    public static ArrayList getBullets() {
+        return bullets;
+    }
+
+    public void fire() {
+        if (ammo > 0) {
+            ammo--;
+            //The v is from the board class, which corresponds to the character's
+            //position when it is jumping, resulting in the bullet being formed
+            //at a higher position when the character is at the peak of its jump
+            Bullet z = new Bullet((getX() + 60), (getY() + 154 / 2));
+            bullets.add(z);
         }
-        public void fire()
-        {
-                if (ammo > 0)
-                {
-                ammo--;
-                //The v is from the board class, which corresponds to the character's
-                //position when it is jumping, resulting in the bullet being formed
-                //at a higher position when the character is at the peak of its jump
-                Bullet z = new Bullet((getX() + 60), (getX() + 154/2));
-                bullets.add(z);
-        }}
+    }
 
     public void move() {
 
@@ -76,52 +73,52 @@ public class Hero {
             x = x - 2;
             dx = 0;
         }
-        
-         //go threw floor stopper
-        
-       //if (y > ground){
-       //  y = 442;
-       //}
+
+        //go threw floor stopper
+
+        //if (y > ground){
+        //  y = 442;
+        //}
         //gravity
         if (y < ground) {
-            if(gravity < -maxGravity) {
+            if (gravity < -maxGravity) {
                 y -= maxGravity;
-            } else
-            if (y + gravity < ground) {
+            } else if (y + gravity < ground) {
                 y = y + gravity;
-            } else
-                y = ground ;
+            } else {
+                y = ground;
+            }
             /*if (gravity < defaultGravity && gravity + 2 <= 2) {
-                gravity += 2;
-            } else if (gravity < defaultGravity) {
-                gravity -= 1;
-            }*/
-            
+             gravity += 2;
+             } else if (gravity < defaultGravity) {
+             gravity -= 1;
+             }*/
+
             //gravity fall
-            if(gravity + 1 < maxGravity) {
+            if (gravity + 1 < maxGravity) {
                 gravity += 1;
-            } else gravity = maxGravity;
+            } else {
+                gravity = maxGravity;
+            }
             //floor catcher
-        } else 
-            if (y > ground && y < 450) {
-            y = ground;    
-        } else 
-                if (y == ground) {
+        } else if (y > ground && y < 450) {
+            y = ground;
+        } else if (y == ground) {
             gravity = 0;
             jumpCounter = 0;
         }
-        
-        /*
-        // Jump Counter
-        if (jumpCounter <= 2) {
-            jump();
-        }
-        if (jumpCounter > 0 && y == 442) {
-            jumpCounter = 0;
-        }*/
 
-       // nx2 = nx2 + dx;
-       // nx = nx + dx;
+        /*
+         // Jump Counter
+         if (jumpCounter <= 2) {
+         jump();
+         }
+         if (jumpCounter > 0 && y == 442) {
+         jumpCounter = 0;
+         }*/
+
+        // nx2 = nx2 + dx;
+        // nx = nx + dx;
 
     }
 
@@ -130,12 +127,6 @@ public class Hero {
         y--;
         gravity = jumpHight;
 
-        /*if (dy < 0) {
-            y -= 6;
-            dy += 5;
-        } else {
-            dy = 0;
-        }*/
 
 
     }
@@ -160,54 +151,30 @@ public class Hero {
         return still;
     }
 
-    
-     public Rectangle getBounds()
-        {
-                return new Rectangle(x,y, 76, 110);
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, 76, 110);
+    }
+
+    public Rectangle attackZone() {
+        attackX = x + 20;
+        attackY = y + 20;
+
+
+
+        return new Rectangle(attackX, attackY, 50, 50);
+
+    }
+   
+
+    public void attack() {
+        attacking = true;
+        if (facing == 1) {
+            still = ar.getImage();
+        } else if (facing == 2) {
+            still = al.getImage();
         }
-     public Rectangle attackZone(){
-         attackX = x + 20;
-         attackY = y + 20;
+    }
 
-
-
-        return new Rectangle(attackX,attackY, 50, 50 );
-         
-       }
-    /*public void keyPressed(KeyEvent e) {
-     int key = e.getKeyCode();
-     if (key == KeyEvent.VK_LEFT) {
-
-     dx = -2;
-     still = l.getImage();
-     }
-
-     if (key == KeyEvent.VK_RIGHT) {
-     dx = 2;
-
-     still = i.getImage();
-     }
-     if (key == KeyEvent.VK_DOWN) {
-     dy = 2;
-     }
-     if (key == KeyEvent.VK_UP) {
-     if (jumpCounter <= 2) {
-     dy = -200;
-     jumpCounter++;
-     }
-     }
-
-     }*/
-     
-     public void attack(){
-         attacking = true;
-         if (facing == 1){ 
-         still = ar.getImage();
-         }
-         else if (facing == 2){
-             still = al.getImage();
-         }
-     }
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: {
@@ -228,16 +195,16 @@ public class Hero {
             }
             case KeyEvent.VK_UP: {
                 if (jumpCounter < 2) {
-                jump();
+                    jump();
                 }/*
-                if (jumpCounter <= 2) {
-                    dy = -200;
-                    jumpCounter++;
-                }*/
+                 if (jumpCounter <= 2) {
+                 dy = -200;
+                 jumpCounter++;
+                 }*/
                 break;
             }
             case KeyEvent.VK_SPACE: {
-                        fire();
+                fire();
                 break;
             }
 
@@ -246,19 +213,6 @@ public class Hero {
     } // end keyPressed
 
 
-    /*public void keyReleased(KeyEvent e) {
-     int key = e.getKeyCode();
-
-     if (key == KeyEvent.VK_LEFT)
-     dx = 0;
-
-     if (key == KeyEvent.VK_RIGHT)
-     dx = 0;
-     if (key == KeyEvent.VK_DOWN)
-     dy = 0;
-     if (key == KeyEvent.VK_UP) {
-     dy = 0;
-     }}*/
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: {
@@ -277,7 +231,7 @@ public class Hero {
                 dy = 0;
                 break;
             }
-            case KeyEvent.VK_SPACE:{
+            case KeyEvent.VK_SPACE: {
                 break;
             }
         }

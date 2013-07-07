@@ -62,7 +62,7 @@ colide = false;
     @Override
     public void actionPerformed(ActionEvent e) {
         //mobMove();
-        checkCollisions();
+        //checkCollisions();
         p.move();
         repaint();
         

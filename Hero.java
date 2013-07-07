@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-// from ipad
+// from ipad 2
 package GameTest;
 
 import java.awt.*;

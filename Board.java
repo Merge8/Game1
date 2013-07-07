@@ -31,6 +31,7 @@ public class Board extends JPanel implements ActionListener {
     public Image floorImg;
     public Image platformImg;
     Timer time;
+    boolean colide;
     static Font font = new Font("SanSerif", Font.BOLD, 24);
 
     public Board() {
@@ -42,7 +43,7 @@ public class Board extends JPanel implements ActionListener {
         ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/background.png");
         ImageIcon f = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/floor.png");
         ImageIcon platform = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/platform.png");
-
+colide = false;
         img = i.getImage();
         floorImg = f.getImage();
         platformImg = platform.getImage();
@@ -60,13 +61,26 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+    public void collisionTrue(){
+        if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
+            p.x += 100;
+                         
+
+        } else 
+            if (p.getX() < en.getX() && p.getX() > 100 && p.getX() < 720){
+                p.x-= 100;
+            }
+        
     
+        
+    }
     public void checkCollisions()
 {
         Rectangle er1 = en.getBounds();
         Rectangle hero = p.getBounds();
         
        if (hero.intersects(er1)) {
+           collisionTrue();
            System.out.println("Colide!");
            
        }

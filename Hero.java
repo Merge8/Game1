@@ -27,7 +27,6 @@ public class Hero {
 
     public Hero() {
         ammo = 10;
-
         still = i.getImage();
         x = 45;
         y = 400;
@@ -44,6 +43,7 @@ public class Hero {
         movementSpeed = 2;
         facing = 0;
         bullets = new ArrayList();
+        attackDamage = 50;
 
     }
 
@@ -84,7 +84,7 @@ public class Hero {
             if (gravity < -maxGravity) {
                 y -= maxGravity;
             } else if (y + gravity < ground) {
-                y = y + gravity;
+               y = y + gravity;
             } else {
                 y = ground;
             }
@@ -108,14 +108,6 @@ public class Hero {
             jumpCounter = 0;
         }
 
-        /*
-         // Jump Counter
-         if (jumpCounter <= 2) {
-         jump();
-         }
-         if (jumpCounter > 0 && y == 442) {
-         jumpCounter = 0;
-         }*/
 
         // nx2 = nx2 + dx;
         // nx = nx + dx;
@@ -131,6 +123,9 @@ public class Hero {
 
     }
 
+    public int getAttackDamage(){
+        return attackDamage;
+    }
     public int getX() {
         return x;
     }
@@ -152,12 +147,12 @@ public class Hero {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 76, 110);
+        return new Rectangle(getX(), getY(), 76, 110);
     }
 
     public Rectangle attackZone() {
-        attackX = x + 20;
-        attackY = y + 20;
+        attackX = getX() + 20;
+        attackY = getY() + 20;
 
 
 

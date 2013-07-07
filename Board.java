@@ -38,8 +38,8 @@ public class Board extends JPanel implements ActionListener {
     public int v = 172;
     Thread animator;
     boolean a = false;
-        boolean done2 = false;
-        
+    boolean done2 = false;
+
     public Board() {
         p = new Hero();
         en = new Ghost();
@@ -61,89 +61,104 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //mobMove();
-        //checkCollisions();
+        checkCollisions();
         p.move();
         repaint();
-        
-        
-        
-        
+
+
         ArrayList bullets = Hero.getBullets();
-                for (int w = 0; w < bullets.size(); w++)
-                {
-                        //This is how to get a current element in an arrayList
-                        //similar to x[2] in a normal array
-                         Bullet m = (Bullet) bullets.get(w);//draw:
-                         if (m.getVisible() == true)
-                         {
-                                 m.move();
-                         }
-                         else bullets.remove(w);
-                }
-        
-        
-        
-        
+        for (int w = 0; w < bullets.size(); w++) {
+            //This is how to get a current element in an arrayList
+            //similar to x[2] in a normal array
+            Bullet m = (Bullet) bullets.get(w);//draw:
+            if (m.getVisible() == true) {
+                m.move();
+            } else {
+                bullets.remove(w);
+            }
+        }
+
+
+
+
     }
 
-    public void collisionTrue(){
+    public void collisionTrue() {
         if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
             p.x += 100;
-                         
 
-        } else 
-            if (p.getX() < en.getX() && p.getX() > 100 && p.getX() < 720){
-                p.x-= 100;
-            }
-        
-    
-     
+
+        } else if (p.getX() < en.getX() && p.getX() > 100 && p.getX() < 720) {
+            p.x -= 100;
+        }
+
+
+
     }
-    public void checkCollisions()
-{
+    public void bulletHit(){
+        en.health -=p.getAttackDamage();
+        
+    }
+
+    public void checkCollisions() {
         Rectangle er1 = en.getBounds();
         Rectangle hero = p.getBounds();
         Rectangle attackZone = p.attackZone();
-        
-       if (hero.intersects(er1)) {
-           collisionTrue();
-           System.out.println("Colide!");
-           
-       }
-       
-       // check attack hit
-       if (attackZone.intersects(er1)) {
-              
-           System.out.println("Hit");
-           en.health = en.health - p.attackDamage;
-           
-       }
-       
-}
+        ArrayList bullets = Hero.getBullets();
+        for (int w = 0; w < bullets.size(); w++) {
+            Bullet m = (Bullet) bullets.get(w);
+            Rectangle m1 = m.getBounds();
+            if (m1.intersects(er1)) {
+            System.out.println("Its a hit");
+            bulletHit();
+            bullets.remove(m);
+           en.alive();
+            }
+
+        }
+
+        if (hero.intersects(er1)) {
+            collisionTrue();
+            System.out.println("Colide!");
+        }
+
+        // check attack hit
+        if (attackZone.intersects(er1)) {
+
+
+        }
+
+
+    }
+
     @Override
     public void paint(Graphics g) {
-        
-          if (p.dy == 1 && done2 == false) {
-                        done2 = true;
-                     animator = new Thread((Runnable) this);
-                        animator.start();
-                }
-p.y = v;
+
+        if (p.dy == 1 && done2 == false) {
+            done2 = true;
+            animator = new Thread((Runnable) this);
+            animator.start();
+        }
+        //p.y = v;
 
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
 
 //Get bullets from ArrayList
-               
-                if ((p.getX() - 590) % 2400 == 0)// p.getX() == 590 || p.getX() == 2990)
-                        p.nx = 0;
-                if ((p.getX() - 1790) % 2400 == 0)// p.getX() == 1790 || p.getX() == 4190)
-                        p.nx2 = 0;
-                
-                
+
+        if ((p.getX() - 590) % 2400 == 0)// p.getX() == 590 || p.getX() == 2990)
+        {
+            p.nx = 0;
+        }
+        if ((p.getX() - 1790) % 2400 == 0)// p.getX() == 1790 || p.getX() == 4190)
+        {
+            p.nx2 = 0;
+        }
+
+
 
         //background image
-              
+
         g2d.drawImage(img, 0, 0, null);
         // bottom floor image
         g2d.drawImage(floorImg, 0, 545, null);
@@ -153,31 +168,30 @@ p.y = v;
 
         //character image
         g2d.drawImage(p.getImage(), p.getX(), p.getY(), null);
-       System.out.println(p.getY());
+        System.out.println(en.getHealth());
 
         // Enemy Spawn
-        if (en.alive = true){
-        g2d.drawImage(en.getImage(), en.getX(),en.getY(), null);
-        en.mobMove();
+        if (en.alive = true) {
+            g2d.drawImage(en.getImage(), en.getX(), en.getY(), null);
+            en.mobMove();
         }
-        
-      g2d.drawImage(en2.getImage(), en2.getX(),en2.getY(), null);
-      en2.mobMove();
-      
-      
-      
-         ArrayList bullets = Hero.getBullets();
-                for (int w = 0; w < bullets.size(); w++)
-                {
-                        //This is how to get a current element in an arrayList
-                        //similar to x[2] in a normal array
-                         Bullet m = (Bullet) bullets.get(w);//draw:
-                    g2d.drawImage(m.getImage(), m.getX(), m.getY(), null);
- 
-                }
-                g2d.setFont(font);
-                g2d.setColor(Color.BLUE);
-                g2d.drawString("Ammo left: " + p.ammo, 500, 50);
+
+        g2d.drawImage(en2.getImage(), en2.getX(), en2.getY(), null);
+        en2.mobMove();
+
+
+
+        ArrayList bullets = Hero.getBullets();
+        for (int w = 0; w < bullets.size(); w++) {
+            //This is how to get a current element in an arrayList
+            //similar to x[2] in a normal array
+            Bullet m = (Bullet) bullets.get(w);//draw:
+            g2d.drawImage(m.getImage(), m.getX(), m.getY(), null);
+
+        }
+        g2d.setFont(font);
+        g2d.setColor(Color.BLUE);
+        g2d.drawString("Ammo left: " + p.ammo, 500, 50);
     }
 
     private class AL extends KeyAdapter {
@@ -192,66 +206,64 @@ p.y = v;
             p.keyPressed(e);
         }
     }
-    
 
-    
-    public void mobMove(){
+    public void mobMove() {
         if (p.getX() > en.getX()) {
             en.x++;
-                            en.still = en.i.getImage();
+            en.still = en.i.getImage();
 
-        } else 
-            if (p.getX() < en.getX()){
-                en.x--;
-                en.still = en.l.getImage();
-            }
-        
+        } else if (p.getX() < en.getX()) {
+            en.x--;
+            en.still = en.l.getImage();
+        }
+
     }
 // end board class
+    boolean hd = false;
+    boolean done = false;
 
-        boolean hd = false;
-        boolean done = false;
- 
-        public void cycle() {
- 
-                if (hd == false)
-                        v--;
-                if (v == 125)
-                        hd = true;
-                if (hd == true && v <= 172) {
-                        v++;
-                        if (v == 172) {
-                                done = true;
-                        }
-                }
+    public void cycle() {
+
+        if (hd == false) {
+            v--;
         }
- 
-        public void run() {
- 
-                long beforeTime, timeDiff, sleep;
- 
-                beforeTime = System.currentTimeMillis();
- 
-                while (done == false) {
- 
-                        cycle();
- 
-                        timeDiff = System.currentTimeMillis() - beforeTime;
-                        sleep = 10 - timeDiff;
- 
-                        if (sleep < 0)
-                                sleep = 2;
-                        try {
-                                Thread.sleep(sleep);
-                        } catch (InterruptedException e) {
-                                System.out.println("interrupted");
-                        }
- 
-                        beforeTime = System.currentTimeMillis();
-                }
-                done = false;
-                hd = false;
-                done2 = false;
+        if (v == 125) {
+            hd = true;
         }
- 
+        if (hd == true && v <= 172) {
+            v++;
+            if (v == 172) {
+                done = true;
+            }
+        }
+    }
+
+    public void run() {
+
+        long beforeTime, timeDiff, sleep;
+
+        beforeTime = System.currentTimeMillis();
+
+        while (done == false) {
+
+            cycle();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = 10 - timeDiff;
+
+            if (sleep < 0) {
+                sleep = 2;
+            }
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                System.out.println("interrupted");
+            }
+
+            beforeTime = System.currentTimeMillis();
+        }
+        done = false;
+        hd = false;
+        done2 = false;
+    }
 }

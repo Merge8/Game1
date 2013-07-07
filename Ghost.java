@@ -16,6 +16,7 @@ public class Ghost extends Enemy {
     ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostRight.png");
 
     Ghost() {
+        health = 100;
         spawnX = 100;
         spawnY = 475;
         hitboxX = 75;

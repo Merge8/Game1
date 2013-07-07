@@ -17,7 +17,7 @@ public class Ghost extends Enemy {
 
     Ghost() {
         health = 100;
-        spawnX = 100;
+        spawnX = 500;
         spawnY = 475;
         hitboxX = 75;
         hitboxY = 75;

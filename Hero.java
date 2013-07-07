@@ -14,6 +14,7 @@ public class Hero {
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
             attackDamage;
     boolean Jumped = false;
+    boolean attacking = false;
     Timer jumpTimer;
     Image still;
     ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/left.png");
@@ -41,11 +42,17 @@ public class Hero {
 
         x = x + dx;
         if (x < 0) {
-            x = x + movementSpeed;
+            x = x + 2;
         }
         if (x > 820) {
-            x = x - movementSpeed;
+            x = x - 2;
         }
+        
+        // go threw floor stopper
+        
+      // if (y > ground){
+        //   y = 442;
+       //}
         //gravity
         if (y < ground) {
             if(gravity < -maxGravity) {
@@ -53,7 +60,8 @@ public class Hero {
             } else
             if (y + gravity < ground) {
                 y = y + gravity;
-            } else y = ground;
+            } else
+                y = ground ;
             /*if (gravity < defaultGravity && gravity + 2 <= 2) {
                 gravity += 2;
             } else if (gravity < defaultGravity) {
@@ -125,6 +133,10 @@ public class Hero {
         {
                 return new Rectangle(x,y, 76, 110);
         }
+     public Rectangle attackZone(){
+        return new Rectangle(x += 20,y += 20, 50, 50 );
+         
+     }
        
     /*public void keyPressed(KeyEvent e) {
      int key = e.getKeyCode();
@@ -150,6 +162,11 @@ public class Hero {
      }
 
      }*/
+     
+     public void attack(){
+         attacking = true;
+         
+     }
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: {
@@ -176,6 +193,10 @@ public class Hero {
                     dy = -200;
                     jumpCounter++;
                 }*/
+                break;
+            }
+            case KeyEvent.VK_SPACE: {
+                attack();
                 break;
             }
 
@@ -213,6 +234,10 @@ public class Hero {
             }
             case KeyEvent.VK_UP: {
                 dy = 0;
+                break;
+            }
+            case KeyEvent.VK_SPACE:{
+                attacking = false;
                 break;
             }
         }

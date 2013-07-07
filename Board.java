@@ -62,7 +62,7 @@ colide = false;
     }
 
     public void collisionTrue(){
-        if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
+      /*  if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
             p.x += 100;
                          
 
@@ -71,20 +71,27 @@ colide = false;
                 p.x-= 100;
             }
         
-    
+    */
         
     }
     public void checkCollisions()
 {
         Rectangle er1 = en.getBounds();
         Rectangle hero = p.getBounds();
+        Rectangle attackZone = p.attackZone();
         
        if (hero.intersects(er1)) {
-           collisionTrue();
+           //collisionTrue();
            System.out.println("Colide!");
            
        }
        
+       // check attack hit
+       if (attackZone.intersects(er1)) {
+           System.out.println("Hit");
+           en.health = en.health - p.attackDamage;
+           
+       }
        
 }
     @Override

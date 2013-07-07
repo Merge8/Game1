@@ -4,6 +4,7 @@
  */
 
 //this is crazy
+//test3
 package GameTest;
 
 import java.awt.*;

@@ -8,13 +8,14 @@ package GameTest;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Hero {
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
-            attackDamage, attackX, attackY;
+            attackDamage, attackX, attackY, facing;
     boolean Jumped = false;
     boolean attacking = false;
     Timer jumpTimer;
@@ -22,8 +23,14 @@ public class Hero {
     ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/left.png");
     ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/hero.png");
     ImageIcon ar = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackRight.png");
+   
+    ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackLeft.png");
+       static ArrayList bullets;
+
 
     public Hero() {
+        ammo = 10;
+
         still = i.getImage();
         x = 45;
         y = 200;
@@ -38,8 +45,25 @@ public class Hero {
         gravity = maxGravity;
         jumpHight = -40;
         movementSpeed = 2;
+        facing = 0;
+                bullets = new ArrayList();
 
     }
+       public static ArrayList getBullets()
+        {
+                return bullets;
+        }
+        public void fire()
+        {
+                if (ammo > 0)
+                {
+                ammo--;
+                //The v is from the board class, which corresponds to the character's
+                //position when it is jumping, resulting in the bullet being formed
+                //at a higher position when the character is at the peak of its jump
+                Bullet z = new Bullet((getX() + 60), (getX() + 154/2));
+                bullets.add(z);
+        }}
 
     public void move() {
 
@@ -177,21 +201,25 @@ public class Hero {
      
      public void attack(){
          attacking = true;
+         if (facing == 1){ 
          still = ar.getImage();
-         
+         }
+         else if (facing == 2){
+             still = al.getImage();
+         }
      }
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: {
                 dx = -6;
                 still = l.getImage();
-
+                facing = 2;
                 break;
             }
             case KeyEvent.VK_RIGHT: {
                 dx = 6;
                 still = i.getImage();
-
+                facing = 1;
                 break;
             }
             case KeyEvent.VK_DOWN: {
@@ -209,7 +237,7 @@ public class Hero {
                 break;
             }
             case KeyEvent.VK_SPACE: {
-                attack();
+                        fire();
                 break;
             }
 
@@ -250,7 +278,6 @@ public class Hero {
                 break;
             }
             case KeyEvent.VK_SPACE:{
-                attacking = false;
                 break;
             }
         }

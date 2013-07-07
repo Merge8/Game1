@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-// from ipad 2
+
 //this is crazy
 package GameTest;
 

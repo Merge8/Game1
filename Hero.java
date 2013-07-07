@@ -11,7 +11,7 @@ import javax.swing.Timer;
 
 public class Hero {
 
-    int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight;
+    int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed;
     boolean Jumped = false;
     Timer jumpTimer;
     Image still;
@@ -32,6 +32,7 @@ public class Hero {
         maxGravity = 5;
         gravity = maxGravity;
         jumpHight = -40;
+        movementSpeed = 2;
 
     }
 
@@ -39,10 +40,10 @@ public class Hero {
 
         x = x + dx;
         if (x < 0) {
-            x = x + 2;
+            x = x + movementSpeed;
         }
         if (x > 820) {
-            x = x - 2;
+            x = x - movementSpeed;
         }
         //gravity
         if (y < ground) {

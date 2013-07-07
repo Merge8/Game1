@@ -4,7 +4,6 @@
  */
 
 //this is crazy
-//test3
 package GameTest;
 
 import java.awt.*;
@@ -144,10 +143,13 @@ public class Hero {
      public Rectangle attackZone(){
          attackX = x + 20;
          attackY = y + 20;
+if (attacking =. true){
+
+
         return new Rectangle(attackX,attackY, 50, 50 );
          
      }
-       
+       }
     /*public void keyPressed(KeyEvent e) {
      int key = e.getKeyCode();
      if (key == KeyEvent.VK_LEFT) {

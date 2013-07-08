@@ -12,8 +12,8 @@ import javax.swing.ImageIcon;
  */
 public class Ghost extends Enemy {
     
-    ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostLeft.png");
-    ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostRight.png");
+    ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/ghostLeft.png");
+    ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/ghostRight.png");
 
     Ghost() {
         health = 100;
@@ -24,6 +24,7 @@ public class Ghost extends Enemy {
         still = i.getImage();
         x = spawnX;
         y = spawnY;
+        xpValue = 10;
 
 
     }

@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 
 public class Bullet {
 
-	int x,y;
+	int x,y, xl;
 	Image img;
 	boolean visible;
 	
@@ -18,7 +18,7 @@ public class Bullet {
 	{
 		x = startX;
 		y = startY;
-		ImageIcon newBullet = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/bulletd.png");
+		ImageIcon newBullet = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/bulletd.png");
 		img = newBullet.getImage();
 		visible = true;
 	}

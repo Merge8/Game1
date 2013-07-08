@@ -14,10 +14,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import sun.applet.Main;
 
 /**
  *
@@ -39,16 +43,22 @@ public class Board extends JPanel implements ActionListener {
     Thread animator;
     boolean a = false;
     boolean done2 = false;
+   // BufferedImage sprite;
+   //         Animator mario;
 
+   // Image dbImage;
+   // Graphics dbg;
     public Board() {
         p = new Hero();
         en = new Ghost();
         en2 = new Shyguy();
         addKeyListener(new AL());
         setFocusable(true);
-        ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/background.png");
-        ImageIcon f = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/floor.png");
-        ImageIcon platform = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/platform.png");
+        ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/background.png");
+        ImageIcon f = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/floor.png");
+        ImageIcon platform = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/platform.png");
+          Image ii = ResourceLoader.getImage("heroSprits.png");
+
         colide = false;
         img = i.getImage();
         floorImg = f.getImage();
@@ -88,7 +98,7 @@ public class Board extends JPanel implements ActionListener {
 
 
     }
-
+/*
     public void collisionTrue() {
                if (en.isAlive == 1){   
 
@@ -102,7 +112,7 @@ public class Board extends JPanel implements ActionListener {
                }
 
 
-    }
+    }*/
     public void bulletHit(){
         en.health -=p.getAttackDamage();
        en.checkAlive();
@@ -117,20 +127,25 @@ public class Board extends JPanel implements ActionListener {
         for (int w = 0; w < bullets.size(); w++) {
             Bullet m = (Bullet) bullets.get(w);
             Rectangle m1 = m.getBounds();
+                 if (en.isAlive == 1){   
+
             if (m1.intersects(er1)) {
             System.out.println("Its a hit");
             bulletHit();
             bullets.remove(m);
            en.alive();
+           p.xp += en.xpGive;
+           p.levelUP();
             }
-
+                 }
         }
+        if (en.isAlive == 1){   
 
         if (hero.intersects(er1)) {
-            collisionTrue();
+           // collisionTrue();
             System.out.println("Colide!");
         }
-
+        }
         // check attack hit
         if (attackZone.intersects(er1)) {
 
@@ -148,8 +163,13 @@ public class Board extends JPanel implements ActionListener {
             animator = new Thread((Runnable) this);
             animator.start();
         }
-        //p.y = v;
-
+       //Start Sprite code
+      /*  
+        dbImage = createImage(getWidth(), getHeight());
+        dbg = dbImage.getGraphics();
+        paintComponent(dbg);
+        g.drawImage(dbImage, 0, 0, null); */
+        // End Sprite Code
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
 
@@ -175,17 +195,28 @@ public class Board extends JPanel implements ActionListener {
         g2d.drawImage(platformImg, 0, 300, null);
 
 
+        
+        
         //character image
         g2d.drawImage(p.getImage(), p.getX(), p.getY(), null);
         System.out.println(en.getHealth());
         System.out.println(en.alive);
+        // Testing Sprites
         
+        
+        
+       // g.drawImage(mario.sprite, 100, 100, 50, 50, null);
+
+        //g2d.drawImage(ii, p.getX(),p.getY(), null);
 
         // Enemy Spawn
         if (en.isAlive == 1){   
         g2d.drawImage(en.getImage(), en.getX(), en.getY(), null);
             en.mobMove();
     }
+        if (en.isAlive == 0) {
+            en = new Ghost();
+        }
 /*
         g2d.drawImage(en2.getImage(), en2.getX(), en2.getY(), null);
         en2.mobMove();
@@ -205,7 +236,7 @@ public class Board extends JPanel implements ActionListener {
         
         g2d.setFont(font);
         g2d.setColor(Color.WHITE);
-        g2d.drawString("HP: " + p.getHealth() + " MP: " + p.getMana() + " XP: " + p.getXP() + "/" + p.getXpToLevel(), 50, 50);
+        g2d.drawString("Level: "+ p.getLevel() + " HP: " + p.getHealth() + " MP: " + p.getMana() + " XP: " + p.getXP() + "/" + p.getXpToLevel(), 50, 50);
     
         //
         
@@ -286,4 +317,23 @@ public class Board extends JPanel implements ActionListener {
         hd = false;
         done2 = false;
     }
+/*
+    private void init(){
+        BufferedImageLoader loader = new BufferedImageLoader();
+        BufferedImage spriteSheet = null;
+        try {
+            spriteSheet = loader.loadImage("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroSprits.png");
+        } catch (IOException ex) {
+          //  Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        SpriteSheet ss = new SpriteSheet(spriteSheet);
+        
+        ArrayList<BufferedImage> sprites = new ArrayList<BufferedImage>();
+        
+        sprites.add(ss.grabSprite(0, 18, 13, 15));
+        sprites.add(ss.grabSprite(16, 17, 16, 16));
+        sprites.add(ss.grabSprite(33, 17, 17, 16));
+        
+      
+    } */
 }

@@ -13,12 +13,14 @@ import java.awt.Rectangle;
  */
 public class Enemy {
     int x, dx, y, dy, spawnX, spawnY, faceLeft, faceRight,health, hitboxX, hitboxY;
+    int xpValue, goldDrop, xpGive;
     Image still, left, right;
     boolean alive = true;
     int isAlive = 1;
+    int killed = 0;
     
-    //ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostLeft.png");
-    //ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/ghostRight.png");
+    //ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/ghostLeft.png");
+    //ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/ghostRight.png");
 
 public Enemy(){
     
@@ -28,7 +30,10 @@ public Enemy(){
 public void checkAlive(){
        if (health <=0){
     isAlive = 0;
-    }  
+    if (isAlive == 0){
+        xpGive = xpValue;
+    }
+       }  
     }
 public void alive(){
     if (health <=0){

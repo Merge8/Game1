@@ -19,10 +19,10 @@ public class Hero {
     boolean attacking = false;
     Timer jumpTimer;
     Image still;
-    ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/left.png");
-    ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/hero.png");
-    ImageIcon ar = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackRight.png");
-    ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/heroAttackLeft.png");
+    ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/left.png");
+    ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/hero.png");
+    ImageIcon ar = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/heroAttack1.png");
+    ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/heroAttackLeft1.png");
     static ArrayList bullets;
     static ArrayList bulletDirection;
     public Hero() {
@@ -35,7 +35,7 @@ public class Hero {
         right = 820;
         left = 0;
         jumpCounter = 0;
-        ammo = 10;
+        ammo = 1000;
         ground = 442;
         maxGravity = 5;
         gravity = maxGravity;
@@ -48,8 +48,9 @@ public class Hero {
 health = 100;
 mana = 100;
 xp = 0;
-xpToLevel = 100;
+xpToLevel = 0;
 facingWhileFired = 0;
+level = 1;
     }
 
     public static ArrayList getBullets() {
@@ -131,6 +132,7 @@ facingWhileFired = 0;
     }
     
     public int getXpToLevel(){
+        level();
         return xpToLevel;
     }
     public int getMana(){
@@ -145,6 +147,16 @@ public int getHealth(){
     
     return health;
     
+}
+public int levelUP(){
+    if (getXP() >= getXpToLevel()){
+    level++;
+    }
+    
+    return level;
+}
+public int getLevel(){
+    return level;
 }
     public int getAttackDamage(){
         return attackDamage;
@@ -173,6 +185,56 @@ public int getHealth(){
         return new Rectangle(getX(), getY(), 76, 110);
     }
 
+    public void level() {
+        switch (getLevel()) {
+            case 1: {
+                xpToLevel = 100;
+             
+                break;
+            }
+            case 2: {
+                xpToLevel = 250;
+                break;
+            }
+                case 3: {
+                xpToLevel = 625;
+                break;
+            }
+                    case 4: {
+                xpToLevel = 1565;
+                break;
+            }
+            case 5: {
+                xpToLevel = 3900;
+                break;
+            }
+            case 6: {
+                xpToLevel = 9750;
+                break;
+            }
+            case 7:{
+                xpToLevel = 24500;
+                break;
+            }    
+            case 8:{
+                xpToLevel = 61000;
+                break;
+              
+            }
+            case 9:{
+                xpToLevel = 150000;
+                break;
+                
+                
+            }
+            case 10:{ 
+                xpToLevel = 381500;
+                break;
+            }
+        }
+
+
+    }
     public Rectangle attackZone() {
         attackX = getX() + 20;
         attackY = getY() + 20;
@@ -182,10 +244,10 @@ public int getHealth(){
         return new Rectangle(attackX, attackY, 50, 50);
 
     }
+    
    
 
     public void attack() {
-        attacking = true;
         if (facing == 1) {
             still = ar.getImage();
         } else if (facing == 2) {
@@ -224,6 +286,7 @@ public int getHealth(){
             case KeyEvent.VK_SPACE: {
                facingWhileFired = facing;
                 fire();
+                
                 break;
             }
         
@@ -256,4 +319,6 @@ public int getHealth(){
         }
 
     }
+
+ 
 }

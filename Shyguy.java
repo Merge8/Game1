@@ -12,8 +12,8 @@ import javax.swing.ImageIcon;
  */
 public class Shyguy extends Enemy{
  
-    ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/shyguyLeft.png");
-    ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/GameTest/shyguyRight.png");
+    ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/shyguyLeft.png");
+    ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/shyguyRight.png");
 
 Shyguy(){
         spawnX = 300;

@@ -16,13 +16,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
  *
  * @author michaeldepinto
  */
-public class Board extends Frame implements ActionListener {
+public class Board extends JPanel implements ActionListener {
     // Values 
 
     Hero p;

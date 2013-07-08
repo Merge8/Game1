@@ -9,21 +9,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  *
  * @author michaeldepinto
  */
-public class MainMenu extends Frame implements MouseListener {
+public class MainMenu extends JPanel implements MouseListener {
 
     static Font font = new Font("SanSerif", Font.BOLD, 20);
     int x, y;
@@ -83,16 +78,14 @@ public class MainMenu extends Frame implements MouseListener {
         System.out.println("y = " + e.getY());
      // Play Button
         if (e.getX() >= 175 && e.getX() <= 220 && e.getY() >= 284 && e.getY() <= 300 ){
-        gamepage = 2;
-        gamePage();
-         /* JFrame play = new JFrame();
+   
+         JFrame play = new JFrame();
           play.add(new Board());
           play.setTitle("Game Test");
           play.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           play.setSize(900, 600);
           play.setVisible(true);
           play.setLocationRelativeTo(null); 
-*/
        }
     }
 

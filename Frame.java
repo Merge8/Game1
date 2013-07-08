@@ -8,7 +8,7 @@ public class Frame extends Start{
 
     public Frame() {
 
-        gamePage();
+        frame.add(new MainMenu());
         frame.setTitle("Game Test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(899, 600);
@@ -17,7 +17,7 @@ public class Frame extends Start{
 
     }
 
-    public void gamePage() {
+   /* public void gamePage() {
         switch (gamepage) {
             case 1: {
                 frame.add(new MainMenu());
@@ -28,7 +28,7 @@ public class Frame extends Start{
             }
         } // end switch
 
-    } // end gamePage()
+    } // end gamePage() */
 
     /*public static void main(String[] args) {
         new Frame();

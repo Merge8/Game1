@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class Hero extends Board{
+public class Hero {
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
             attackDamage, attackX, attackY, facing, health, mana ,xp, xpToLevel, facingWhileFired, level,
@@ -136,7 +136,6 @@ level = 1;
     }
     public void checkIfDead(){
          if (health <= 0){
-             gamepage = 1;
              /*   JFrame frame = new JFrame();
           frame.add(new MainMenu());
           frame.setTitle("Game Test");

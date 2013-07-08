@@ -4,14 +4,12 @@
  */
 package GameTest;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author michaeldepinto
  */
-public class Start extends JPanel{
-    int gamepage = 1;
+public class Start{
+  //  int gamepage = 1;
     
     
      public static void main(String[] args) {

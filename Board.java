@@ -14,20 +14,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.Timer;
-import sun.applet.Main;
 
 /**
  *
  * @author michaeldepinto
  */
-public class Board extends JPanel implements ActionListener {
+public class Board extends Frame implements ActionListener {
     // Values 
 
     Hero p;
@@ -36,7 +31,7 @@ public class Board extends JPanel implements ActionListener {
     public Image img;
     public Image floorImg;
     public Image platformImg;
-    Timer time;
+   public Timer time;
     boolean colide;
     static Font font = new Font("SanSerif", Font.BOLD, 20);
     public int v = 172;
@@ -65,6 +60,8 @@ public class Board extends JPanel implements ActionListener {
         platformImg = platform.getImage();
         time = new Timer(10, this);
         time.start();
+        
+        
 
     }
 
@@ -98,21 +95,7 @@ public class Board extends JPanel implements ActionListener {
 
 
     }
-/*
-    public void collisionTrue() {
-               if (en.isAlive == 1){   
 
-        if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
-            p.x += 100;
-
-
-        } else if (p.getX() < en.getX() && p.getX() > 100 && p.getX() < 720) {
-            p.x -= 100;
-        }
-               }
-
-
-    }*/
     public void bulletHit(){
         en.health -=p.getAttackDamage();
        en.checkAlive();
@@ -142,7 +125,7 @@ public class Board extends JPanel implements ActionListener {
         if (en.isAlive == 1){   
 
         if (hero.intersects(er1)) {
-           // collisionTrue();
+           collisionTrue();
             System.out.println("Colide!");
         }
         }
@@ -154,6 +137,23 @@ public class Board extends JPanel implements ActionListener {
 
 
     }
+    public void collisionTrue() {
+               if (en.isAlive == 1){   
+
+        if (p.getX() > en.getX() && p.getX() > 100 && p.getX() < 720) {
+            p.x += 100;
+            p.incomingDamage = en.damage;
+            p.takeDamage();
+            p.checkIfDead();
+
+        } else if (p.getX() < en.getX() && p.getX() > 100 && p.getX() < 720) {
+            p.x -= 100;
+            p.incomingDamage = en.damage;
+            p.takeDamage();
+            p.checkIfDead();
+        }
+               }
+}
 
     @Override
     public void paint(Graphics g) {
@@ -336,4 +336,5 @@ public class Board extends JPanel implements ActionListener {
         
       
     } */
+    
 }

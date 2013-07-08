@@ -25,6 +25,7 @@ public class Ghost extends Enemy {
         x = spawnX;
         y = spawnY;
         xpValue = 10;
+        damage = 100;
 
 
     }

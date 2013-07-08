@@ -1,21 +1,39 @@
 package GameTest;
+
 import javax.swing.*;
 
-public class Frame {
+public class Frame extends Start{
 
-	public Frame(){
-		JFrame frame = new JFrame();
-		frame.add(new Board());	
-		frame.setTitle("Game Test");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(899,600);
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-	}
-	
+    JFrame frame = new JFrame();
 
-public static void main(String[] args){
-		new Frame();
-               
-	}
+    public Frame() {
+
+        gamePage();
+        frame.setTitle("Game Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(899, 600);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+
+    }
+
+    public void gamePage() {
+        switch (gamepage) {
+            case 1: {
+                frame.add(new MainMenu());
+                break;
+            }
+            case 2: {
+                frame.add(new Board());
+            }
+        } // end switch
+
+    } // end gamePage()
+
+    /*public static void main(String[] args) {
+        new Frame();
+
+
+
+    } */
 }

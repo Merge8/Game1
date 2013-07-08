@@ -12,12 +12,14 @@ import java.awt.Rectangle;
  * @author michaeldepinto
  */
 public class Enemy {
-    int x, dx, y, dy, spawnX, spawnY, faceLeft, faceRight,health, hitboxX, hitboxY;
+    int x, dx, y, dy, spawnX, spawnY, faceLeft, faceRight,health, hitboxX, hitboxY,
+            damage;
     int xpValue, goldDrop, xpGive;
     Image still, left, right;
     boolean alive = true;
     int isAlive = 1;
     int killed = 0;
+   
     
     //ImageIcon l = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/ghostLeft.png");
     //ImageIcon i = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/ghostRight.png");

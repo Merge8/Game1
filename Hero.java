@@ -9,12 +9,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class Hero {
+public class Hero extends Board{
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
-            attackDamage, attackX, attackY, facing, health, mana ,xp, xpToLevel, facingWhileFired, level;
+            attackDamage, attackX, attackY, facing, health, mana ,xp, xpToLevel, facingWhileFired, level,
+            armor, incomingDamage;
     boolean Jumped = false;
     boolean attacking = false;
     Timer jumpTimer;
@@ -25,6 +27,7 @@ public class Hero {
     ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/heroAttackLeft1.png");
     static ArrayList bullets;
     static ArrayList bulletDirection;
+    private Object time;
     public Hero() {
         ammo = 10;
         still = i.getImage();
@@ -126,12 +129,27 @@ level = 1;
         jumpCounter++;
         y--;
         gravity = jumpHight;
-
-
-
     }
+    public void takeDamage(){
+        health -= incomingDamage;
+        incomingDamage = 0;
+    }
+    public void checkIfDead(){
+         if (health <= 0){
+             gamepage = 1;
+             /*   JFrame frame = new JFrame();
+          frame.add(new MainMenu());
+          frame.setTitle("Game Test");
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.setSize(899, 600);
+          frame.setVisible(true);
+          frame.setLocationRelativeTo(null);
+        
     
-    public int getXpToLevel(){
+    */
+         }
+    }
+public int getXpToLevel(){
         level();
         return xpToLevel;
     }
@@ -143,6 +161,7 @@ level = 1;
     public int getXP(){
         return xp;
     }
+    
 public int getHealth(){
     
     return health;

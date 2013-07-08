@@ -26,12 +26,16 @@ public class MainAttack {
 		imgL = newAttackLeft.getImage();
                 img = newAttack.getImage();
 		visible = true;
+                
 	}
 	
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x,y, 75, 30);
 	}
+        public Rectangle getBoundsLeft(){
+            return new Rectangle(x -120, y, 75, 30);
+        }
 	public int getX()
 	{
 		return x;

@@ -16,7 +16,7 @@ public class Hero {
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
             attackDamage, attackX, attackY, facing, health, mana, xp, xpToLevel, facingWhileFired, level,
-            armor, incomingDamage, spellDamage;
+            armor, incomingDamage, spellDamage, castCost, manaRegen, maxMana;
     boolean Jumped = false;
     boolean attacking = false;
     Timer jumpTimer;
@@ -29,6 +29,9 @@ public class Hero {
     static ArrayList bulletDirection;
     static ArrayList attack;
     private Object time;
+     long nextSecond = System.currentTimeMillis() + 1000;
+int frameInLastSecond = 0;
+int framesInCurrentSecond = 0;
 
     public Hero() {
         ammo = 10;
@@ -58,6 +61,9 @@ public class Hero {
         xpToLevel = 0;
         facingWhileFired = 0;
         level = 1;
+        castCost = 20;
+        manaRegen = 4;
+        
     }
 
     public static ArrayList getBullets() {
@@ -72,8 +78,8 @@ public class Hero {
     }
 
     public void fire() {
-        if (ammo > 0) {
-            ammo--;
+        if (mana >= castCost) {
+            mana -= castCost;
             //The v is from the board class, which corresponds to the character's
             //position when it is jumping, resulting in the bullet being formed
             //at a higher position when the character is at the peak of its jump
@@ -91,6 +97,16 @@ public class Hero {
 
     public void move() {
 
+        // long currentTime = System.currentTimeMillis();
+
+/*if (currentTime > nextSecond) {
+        nextSecond += 1000;
+        frameInLastSecond = framesInCurrentSecond;
+        framesInCurrentSecond = 0;
+      
+    }
+        framesInCurrentSecond++; */
+        
         x = x + dx;
         if (x < 0) {
             x = x + 2;
@@ -177,6 +193,9 @@ public class Hero {
         return mana;
 
     }
+    public int getMaxMana(){
+        return maxMana;
+    }
 
     public int getXP() {
         return xp;
@@ -195,7 +214,9 @@ public class Hero {
 
         return level;
     }
-
+public int getManaRegen(){
+    return manaRegen;
+}
     public int getLevel() {
         return level;
     }

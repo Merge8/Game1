@@ -15,9 +15,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.print.attribute.standard.Media;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 
 /**
  *
@@ -39,6 +41,11 @@ public class Board extends JPanel implements ActionListener {
     Thread animator;
     boolean a = false;
     boolean done2 = false;
+    long nextSecond = System.currentTimeMillis() + 1000;
+int frameInLastSecond = 0;
+int framesInCurrentSecond = 0;
+
+
    // BufferedImage sprite;
    //         Animator mario;
 
@@ -59,12 +66,11 @@ public class Board extends JPanel implements ActionListener {
         img = i.getImage();
         floorImg = f.getImage();
         platformImg = platform.getImage();
-        time = new Timer(10, this);
+        time = new Timer(15, this);
         time.start();
         
-        
-
     }
+       
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -112,8 +118,23 @@ public class Board extends JPanel implements ActionListener {
         }
 
 
-
+ 
+       
+    
+long currentTime = System.currentTimeMillis();
+    if (currentTime > nextSecond) {
+        nextSecond += 1000;
+        frameInLastSecond = framesInCurrentSecond;
+        framesInCurrentSecond = 0;
+      //  Mana Regen
+            p.mana += p.manaRegen;
+            
+        
     }
+        framesInCurrentSecond++;
+
+        
+    } // end action preformed
 
     public void bulletHit(){
         en.health -=p.getSpellDamage();
@@ -136,13 +157,19 @@ public class Board extends JPanel implements ActionListener {
         ArrayList attack = Hero.getAttack();
         for (int ww = 0; ww < attack.size(); ww++) {
             MainAttack ma = (MainAttack) attack.get(ww);
-            Rectangle ma1 = ma.getBounds();
+                 Rectangle ma1 = ma.getBounds();
+
+            if (p.facingWhileFired == 1){
+                  ma1 = ma.getBounds();
+
+           } else if (p.facingWhileFired ==2){
+                ma1 = ma.getBoundsLeft();
+           }
                  if (en.isAlive == 1){   
 
             if (ma1.intersects(er1)) {
             System.out.println("Its a hit");
-            bulletHit();
-            attack.remove(ma);
+            attackHit();
            en.alive();
            p.xp += en.xpGive;
            p.levelUP();
@@ -296,12 +323,14 @@ public class Board extends JPanel implements ActionListener {
         g2d.setFont(font);
         g2d.setColor(Color.WHITE);
         g2d.drawString("Level: "+ p.getLevel() + " HP: " + p.getHealth() + " MP: " + p.getMana() + " XP: " + p.getXP() + "/" + p.getXpToLevel(), 50, 50);
-    
+            g.drawString(getFPS() + " fps", 700, 50);
+
         //
         
-        g2d.setFont(font);
-        g2d.setColor(Color.BLUE);
-        g2d.drawString("Ammo left: " + p.ammo, 500, 50);
+        //g2d.setFont(font);
+        //g2d.setColor(Color.BLUE);
+        //g2d.drawString("Ammo left: " + p.ammo, 500, 50);
+    
     }
 
     private class AL extends KeyAdapter {
@@ -328,6 +357,9 @@ public class Board extends JPanel implements ActionListener {
         }
 
     }
+    public int getFPS() {
+        return frameInLastSecond;
+    }
 // end board class
     boolean hd = false;
     boolean done = false;
@@ -347,6 +379,7 @@ public class Board extends JPanel implements ActionListener {
             }
         }
     }
+    
 
     public void run() {
 
@@ -376,6 +409,7 @@ public class Board extends JPanel implements ActionListener {
         hd = false;
         done2 = false;
     }
+     
 /*
     private void init(){
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -395,5 +429,6 @@ public class Board extends JPanel implements ActionListener {
         
       
     } */
+    
     
 }

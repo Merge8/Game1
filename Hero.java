@@ -15,8 +15,8 @@ import javax.swing.Timer;
 public class Hero {
 
     int x, dx, y, dy, nx2, nx, left, right, jumpCounter, ammo, ground, gravity, maxGravity, jumpHight, movementSpeed,
-            attackDamage, attackX, attackY, facing, health, mana ,xp, xpToLevel, facingWhileFired, level,
-            armor, incomingDamage;
+            attackDamage, attackX, attackY, facing, health, mana, xp, xpToLevel, facingWhileFired, level,
+            armor, incomingDamage, spellDamage;
     boolean Jumped = false;
     boolean attacking = false;
     Timer jumpTimer;
@@ -27,7 +27,9 @@ public class Hero {
     ImageIcon al = new ImageIcon("/Users/michaeldepinto/NetBeansProjects/GameTest/src/Images/heroAttackLeft1.png");
     static ArrayList bullets;
     static ArrayList bulletDirection;
+    static ArrayList attack;
     private Object time;
+
     public Hero() {
         ammo = 10;
         still = i.getImage();
@@ -47,21 +49,28 @@ public class Hero {
         facing = 0;
         bullets = new ArrayList();
         bulletDirection = new ArrayList();
+        attack = new ArrayList();
         attackDamage = 50;
-health = 100;
-mana = 100;
-xp = 0;
-xpToLevel = 0;
-facingWhileFired = 0;
-level = 1;
+        spellDamage = 50;
+        health = 100;
+        mana = 100;
+        xp = 0;
+        xpToLevel = 0;
+        facingWhileFired = 0;
+        level = 1;
     }
 
     public static ArrayList getBullets() {
         return bullets;
     }
-    public static ArrayList getBulletDirection(){
+    public static ArrayList getAttack() {
+        return attack;
+    }
+
+    public static ArrayList getBulletDirection() {
         return bulletDirection;
     }
+
     public void fire() {
         if (ammo > 0) {
             ammo--;
@@ -69,9 +78,15 @@ level = 1;
             //position when it is jumping, resulting in the bullet being formed
             //at a higher position when the character is at the peak of its jump
             Bullet z = new Bullet((getX() + 60), (getY() + 154 / 2));
-            
+
             bullets.add(z);
         }
+    }
+
+    public void attack() {
+        MainAttack ma = new MainAttack((getX() + 60), (getY() + 154 / 2));
+        attack.add(ma);
+
     }
 
     public void move() {
@@ -96,7 +111,7 @@ level = 1;
             if (gravity < -maxGravity) {
                 y -= maxGravity;
             } else if (y + gravity < ground) {
-               y = y + gravity;
+                y = y + gravity;
             } else {
                 y = ground;
             }
@@ -125,60 +140,73 @@ level = 1;
         // nx = nx + dx;
 
     }
+
     public void jump() {
         jumpCounter++;
         y--;
         gravity = jumpHight;
     }
-    public void takeDamage(){
+
+    public void takeDamage() {
         health -= incomingDamage;
         incomingDamage = 0;
     }
-    public void checkIfDead(){
-         if (health <= 0){
-             /*   JFrame frame = new JFrame();
-          frame.add(new MainMenu());
-          frame.setTitle("Game Test");
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.setSize(899, 600);
-          frame.setVisible(true);
-          frame.setLocationRelativeTo(null);
+
+    public void checkIfDead() {
+        if (health <= 0) {
+            /*   JFrame frame = new JFrame();
+             frame.add(new MainMenu());
+             frame.setTitle("Game Test");
+             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+             frame.setSize(899, 600);
+             frame.setVisible(true);
+             frame.setLocationRelativeTo(null);
         
     
-    */
-         }
+             */
+        }
     }
-public int getXpToLevel(){
+
+    public int getXpToLevel() {
         level();
         return xpToLevel;
     }
-    public int getMana(){
-        
+
+    public int getMana() {
+
         return mana;
-        
+
     }
-    public int getXP(){
+
+    public int getXP() {
         return xp;
     }
-    
-public int getHealth(){
-    
-    return health;
-    
-}
-public int levelUP(){
-    if (getXP() >= getXpToLevel()){
-    level++;
+
+    public int getHealth() {
+
+        return health;
+
     }
-    
-    return level;
-}
-public int getLevel(){
-    return level;
-}
-    public int getAttackDamage(){
+
+    public int levelUP() {
+        if (getXP() >= getXpToLevel()) {
+            level++;
+        }
+
+        return level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getAttackDamage() {
         return attackDamage;
     }
+    public int getSpellDamage(){
+        return spellDamage;
+    }
+
     public int getX() {
         return x;
     }
@@ -207,18 +235,18 @@ public int getLevel(){
         switch (getLevel()) {
             case 1: {
                 xpToLevel = 100;
-             
+
                 break;
             }
             case 2: {
                 xpToLevel = 250;
                 break;
             }
-                case 3: {
+            case 3: {
                 xpToLevel = 625;
                 break;
             }
-                    case 4: {
+            case 4: {
                 xpToLevel = 1565;
                 break;
             }
@@ -230,22 +258,22 @@ public int getLevel(){
                 xpToLevel = 9750;
                 break;
             }
-            case 7:{
+            case 7: {
                 xpToLevel = 24500;
                 break;
-            }    
-            case 8:{
+            }
+            case 8: {
                 xpToLevel = 61000;
                 break;
-              
+
             }
-            case 9:{
+            case 9: {
                 xpToLevel = 150000;
                 break;
-                
-                
+
+
             }
-            case 10:{ 
+            case 10: {
                 xpToLevel = 381500;
                 break;
             }
@@ -253,6 +281,7 @@ public int getLevel(){
 
 
     }
+
     public Rectangle attackZone() {
         attackX = getX() + 20;
         attackY = getY() + 20;
@@ -262,17 +291,15 @@ public int getLevel(){
         return new Rectangle(attackX, attackY, 50, 50);
 
     }
-    
-   
 
-    public void attack() {
+   /* public void attack() {
         if (facing == 1) {
             still = ar.getImage();
         } else if (facing == 2) {
             still = al.getImage();
         }
     }
-
+*/
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: {
@@ -302,21 +329,23 @@ public int getLevel(){
                 break;
             }
             case KeyEvent.VK_SPACE: {
-               facingWhileFired = facing;
+                facingWhileFired = facing;
                 fire();
-                
+
                 break;
             }
-            case KeyEvent.VK_M:{
-             //   Frame.add(new MainMenu());
+            case KeyEvent.VK_C: {
+                facingWhileFired = facing;
+                attack();
+
                 break;
-                
             }
-        
+
+
+
         } // end switch
 
     } // end keyPressed
-
 
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -342,6 +371,4 @@ public int getLevel(){
         }
 
     }
-
- 
 }

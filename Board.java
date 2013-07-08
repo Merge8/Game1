@@ -72,8 +72,26 @@ public class Board extends JPanel implements ActionListener {
         checkCollisions();
         p.move();
         repaint();
-
-
+// attack command
+          ArrayList attack = Hero.getAttack();
+        for (int ww = 0; ww < attack.size(); ww++) {
+            //This is how to get a current element in an arrayList
+            //similar to x[2] in a normal array
+            MainAttack ma = (MainAttack) attack.get(ww);//draw:
+           if (p.facingWhileFired == 1){
+            if (ma.getVisible() == true) {
+                ma.move();
+            } 
+        } else
+        if (p.facingWhileFired == 2){
+           if (ma.getVisible() == true) {
+                } else {
+                attack.remove(ww);
+           }
+        }
+           }
+        
+// shoot command
         ArrayList bullets = Hero.getBullets();
         for (int w = 0; w < bullets.size(); w++) {
             //This is how to get a current element in an arrayList
@@ -98,6 +116,11 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void bulletHit(){
+        en.health -=p.getSpellDamage();
+       en.checkAlive();
+     
+    }
+    public void attackHit(){
         en.health -=p.getAttackDamage();
        en.checkAlive();
      
@@ -107,6 +130,26 @@ public class Board extends JPanel implements ActionListener {
         Rectangle er1 = en.getBounds();
         Rectangle hero = p.getBounds();
         Rectangle attackZone = p.attackZone();
+       
+        
+       // attack Check hit 
+        ArrayList attack = Hero.getAttack();
+        for (int ww = 0; ww < attack.size(); ww++) {
+            MainAttack ma = (MainAttack) attack.get(ww);
+            Rectangle ma1 = ma.getBounds();
+                 if (en.isAlive == 1){   
+
+            if (ma1.intersects(er1)) {
+            System.out.println("Its a hit");
+            bulletHit();
+            attack.remove(ma);
+           en.alive();
+           p.xp += en.xpGive;
+           p.levelUP();
+            }
+                 }
+        }
+        //shoot check hit
         ArrayList bullets = Hero.getBullets();
         for (int w = 0; w < bullets.size(); w++) {
             Bullet m = (Bullet) bullets.get(w);
@@ -127,7 +170,7 @@ public class Board extends JPanel implements ActionListener {
 
         if (hero.intersects(er1)) {
            collisionTrue();
-            System.out.println("Colide!");
+           // System.out.println("Colide!");
         }
         }
         // check attack hit
@@ -231,7 +274,22 @@ public class Board extends JPanel implements ActionListener {
             g2d.drawImage(m.getImage(), m.getX(), m.getY(), null);
 
         }
-    
+    //draw attack
+        ArrayList attack = Hero.getAttack();
+        for (int ww = 0; ww < attack.size(); ww++) {
+            //This is how to get a current element in an arrayList
+            //similar to x[2] in a normal array
+            MainAttack ma = (MainAttack) attack.get(ww);//draw:
+           if (p.facing == 1){
+            g2d.drawImage(ma.getImage(), ma.getX(), ma.getY(), null);
+           }
+           if (p.facing == 2){
+            g2d.drawImage(ma.getImageLeft(), ma.getX() - 120, ma.getY(), null);
+
+           }
+           attack.remove(ww);
+
+        }
         // display char top bar
         
         
